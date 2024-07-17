@@ -108,7 +108,7 @@ const pay = async () => {
                         <div id="card-element"></div>
 
 
-                        <div v-if="pending" class="row">
+                        <div v-if="pending" class="text-center">
                             Payment processing...
                         </div>
 
