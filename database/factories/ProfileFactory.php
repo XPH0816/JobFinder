@@ -20,6 +20,7 @@ class ProfileFactory extends Factory
         return [
             'user_id' => User::factory(),
             'address' => $this->faker->address,
+            'gender' => $this->faker->randomElement(["male", "female"]),
             'dob' => $this->faker->date,
             'experience' => $this->faker->text,
             'bio' => $this->faker->text,

@@ -19,7 +19,7 @@ class UserFactory extends Factory
     {
         return [
             'name' => fake()->name(),
-            'email' => fake()->unique()->safeEmail(),
+            'email' => fake()->userName() . '@' . '1utar.my',
             'user_type'=> fake()->randomElement(['seeker', 'employer']),
             'status' => 1,
             'email_verified_at' => now(),
