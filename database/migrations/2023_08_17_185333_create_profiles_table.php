@@ -14,15 +14,15 @@ return new class extends Migration
         Schema::create('profiles', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
-            $table->string('address');
+            $table->string('address')->nullable();
             $table->string('gender');
             $table->string('dob');
-            $table->text('experience');
-            $table->string('phone');
-            $table->text('bio');
-            $table->string('cover_letter');
-            $table->string('resume');
-            $table->string('avatar');
+            $table->text('experience')->nullable();
+            $table->string('phone')->nullable();
+            $table->text('bio')->nullable();
+            $table->string('cover_letter')->nullable();
+            $table->string('resume')->nullable();
+            $table->string('avatar')->nullable();
             $table->timestamps();
         });
     }
