@@ -29,7 +29,7 @@ class JobFactory extends Factory
             'position' => $title,
             'address' => $this->faker->address(),
             'category_id' => rand(1, 20),
-            'type' => $this->faker->randomElement(['fulltime', 'part time', 'intern', 'remote']),
+            'type' => $this->faker->randomElement(['part time', 'intern']),
             'featured' => rand(0, 1),
             'status' => 1,
             'description' => $this->faker->paragraph(rand(2, 10)),

@@ -24,11 +24,11 @@
                 <div class="card-body">
                         <form action="{{ route('company.store') }}" method="POST">
                             @csrf
-                        
+
                             <div class="form-group">
                                 <label for="">Address</label>
                                 <input type="text" class="form-control{{ $errors->has('address') ? ' is-invalid' : '' }}" name="address" value="{{ Auth::user()->company->address }}">
-                        
+
                                 @if ($errors->has('address'))
                                 <div style="color:red">
                                     <p class="mb-0">{{ $errors->first('address') }}</p>
@@ -39,7 +39,7 @@
                             <div class="form-group mt-3">
                                 <label for="">Phone</label>
                                 <input type="text" class="form-control{{ $errors->has('phone') ? ' is-invalid' : '' }}" name="phone" value="{{ Auth::user()->company->phone }}">
-                        
+
                                 @if ($errors->has('phone'))
                                 <div style="color:red">
                                     <p class="mb-0">{{ $errors->first('phone') }}</p>
@@ -48,9 +48,9 @@
 
                             </div>
                             <div class="form-group mt-3">
-                                <label for="">Website</label>
+                                <label for="">Website (Including https://) </label>
                                 <input type="text" class="form-control{{ $errors->has('website') ? ' is-invalid' : '' }}" name="website" value="{{ Auth::user()->company->website }}">
-                        
+
                                 @if ($errors->has('website'))
                                 <div style="color:red">
                                     <p class="mb-0">{{ $errors->first('website') }}</p>
@@ -58,11 +58,11 @@
                                 @endif
 
                             </div>
-                
+
                             <div class="form-group mt-3">
                                 <label for="">Slogan</label>
                                 <input type="text" class="form-control{{ $errors->has('slogan') ? ' is-invalid' : '' }}" name="slogan" value="{{ Auth::user()->company->slogan }}">
-                        
+
                                 @if ($errors->has('slogan'))
                                 <div style="color:red">
                                     <p class="mb-0">{{ $errors->first('slogan') }}</p>
@@ -70,12 +70,12 @@
                                 @endif
 
                             </div>
-                
-                        
+
+
                             <div class="form-group mt-3">
                                 <label for="">Description</label>
                                 <textarea name="description" id="" style="height: 120px" class="form-control{{ $errors->has('description') ? ' is-invalid' : '' }}" cols="30" rows="10">{{ Auth::user()->company->description }}</textarea>
-                                
+
                                 @if ($errors->has('description'))
                                 <div style="color:red">
                                     <p class="mb-0">{{ $errors->first('description') }}</p>
@@ -93,11 +93,11 @@
                                     <strong>Wow awesome !</strong> {{ Session::get('message') }}
                                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                 </div>
-                            
-                            @endif
-                            
 
-                        
+                            @endif
+
+
+
 
                         </form>
                 </div>
@@ -112,12 +112,12 @@
                         </div>
                         @if (!empty(Auth::user()->company->logo))
                         <img src="{{ asset('uploads/logo') }}/{{ Auth::user()->company->logo }}" style="width:100px; height:100px;border-radius:100px;object-fit: cover; margin:0px auto" class="border  mb-3" alt="">
-                        @else    
+                        @else
                         <img src="https://i.pravatar.cc/150" style="width:100px;border-radius:100px; margin:0px auto" class="border  mb-3" alt="">
 
                         @endif
                         <div class="card-body p-0 text-center">
-                
+
                             <input type="file" class="form-control{{ $errors->has('logo') ? ' is-invalid' : '' }}" name="logo">
                             <button class="btn btn-success w-100 mt-3">Update</button>
 
@@ -134,7 +134,7 @@
                                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                 </div>
 
-                                
+
                             @endif
 
                         </div>
@@ -157,7 +157,7 @@
 
                     </div>
                 </div>
-            
+
                 <form action="{{ route('banner') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="card mt-3">
@@ -170,7 +170,7 @@
                                 <img src="{{ asset('uploads/banner') }}/{{ Auth::user()->company->banner }}" style="width:100%;object-fit: cover; margin:0px auto" class="border  mb-3" alt="">
                                 @else
                                 <img src="{{ asset('cover/cover-photo.jpg') }}" style="max-width: 100%" alt="">
-                                @endif 
+                                @endif
                             </div>
                             <input type="file" class="form-control{{ $errors->has('banner') ? ' is-invalid' : '' }}" name="banner">
                             <button class="btn btn-success mt-3">Update</button>
@@ -187,12 +187,12 @@
                                 <p class="mb-0">{{ $errors->first('banner') }}</p>
                             </div>
                         @endif
-                
+
 
                         </div>
                     </div>
                 </form>
-            
+
 
 
             </div>

@@ -41,10 +41,10 @@ class CompanyController extends Controller
 
         $request->validate([
             'address' => 'required|min:20|max:450',
-            'phone'=> 'required|digits:11',
+            'phone'=> 'required|required|regex:/^([0-9\s\-\+\(\)]*)$/|min:10',
             'website'=> 'required',
             'slogan'=> 'required|min:10|max:100',
-            'description'=> 'required|min:100|max:4000',
+            'description'=> 'required|min:50|max:4000',
         ]);
 
 
@@ -54,7 +54,6 @@ class CompanyController extends Controller
             'website'=> request('website'),
             'slogan'=> request('slogan'),
             'description'=> request('description'),
-          
         ]);
 
 
@@ -64,32 +63,32 @@ class CompanyController extends Controller
     public function logo(Request $request)
     {
         $user_id = auth()->user()->id;
-    
+
         $request->validate([
             'logo' => 'required|mimes:jpeg,jpg,png|max:1024',
         ]);
-    
+
         if ($request->hasFile('logo')) {
             $file = $request->file('logo');
             $ext = $file->getClientOriginalExtension();
             $filename = time() . '.' . $ext;
-    
+
             // Retrieve the old logo filename
             $oldLogo = Company::where('user_id', $user_id)->value('logo');
-      
+
 
             // Delete the old logo file
             if(is_file(public_path('uploads/logo/' . $oldLogo))){
                 unlink(public_path('uploads/logo/' . $oldLogo));
-                
+
             }
-    
+
             $file->move('uploads/logo/', $filename);
-    
+
             Company::where('user_id', $user_id)->update([
                 'logo' => $filename
             ]);
-    
+
             return redirect()->back()->with('logo', 'Logo updated...');
         }
     }
@@ -97,32 +96,32 @@ class CompanyController extends Controller
 
     public function banner(Request $request){
         $user_id = auth()->user()->id;
-        
+
         $request->validate([
             'banner' => 'required|mimes:jpeg,jpg,png|max:2048',
         ]);
-    
+
         if ($request->hasFile('banner')) {
             $file = $request->file('banner');
             $ext = $file->getClientOriginalExtension();
             $filename = time() . '.' . $ext;
-    
+
             // Retrieve the old banner filename
             $oldBanner = Company::where('user_id', $user_id)->value('banner');
-      
+
 
             // Delete the old banner file
             if(is_file(public_path('uploads/banner/' . $oldBanner))){
                 unlink(public_path('uploads/banner/' . $oldBanner));
-                
+
             }
-    
+
             $file->move('uploads/banner/', $filename);
-    
+
             Company::where('user_id', $user_id)->update([
                 'banner' => $filename
             ]);
-    
+
             return redirect()->back()->with('banner', 'Banner updated...');
         }
 
@@ -138,5 +137,5 @@ class CompanyController extends Controller
         return view('frontend.company.company', compact('companies'));
     }
 
- 
+
 }

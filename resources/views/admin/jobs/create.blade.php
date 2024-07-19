@@ -9,17 +9,17 @@
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{ route('dashboard') }}"><i class="material-icons">home</i>Home</a></li>
-        
+
         <li class="breadcrumb-item active" aria-current="page">Create new job</li>
         </ol>
     </nav>
     <div class="create-item">
         <a href="/dashboard/jobs" class="theme-primary-btn btn btn-primary"><i class="material-icons">arrow_back</i>&nbsp;Back to jobs</a>
-        
-        
+
+
     </div>
 </div>
-    <!--  Header BreadCrumb --> 
+    <!--  Header BreadCrumb -->
 
 
 
@@ -34,15 +34,15 @@
                 <div class="col-md-4">
                     <select name="company_id" id="company_id" class="form-control">
                         @foreach (App\Models\Company::all() as $company)
-                      
+
                         <option value="{{ $company->id }}">{{ $company->cname }}</option>
-                     
-                            
+
+
                         @endforeach
 
                         <input type="hidden" name="company_id" value="{{ $company->id }}">
                     </select>
-              
+
 
 
                  </div>
@@ -98,7 +98,7 @@
                             <p class="mb-0">{{ $errors->first('type') }}</p>
                         </div>
                     @endif
-             
+
                  </div>
             </div>
             <div class="form-group row">
@@ -107,7 +107,7 @@
                     <select name="category" id="category" class="form-control">
                         @foreach (App\Models\Category::all() as $cat)
                         <option value="{{ $cat->id }}">{{ $cat->name }}</option>
-                            
+
                         @endforeach
                     </select>
                     @if ($errors->has('category'))
@@ -181,13 +181,16 @@
                 <div class="col-md-4">
                     <select class="form-control" name="salary">
                         <option value="negotiable">Negotiable</option>
-                        <option value="2000-5000">2000-5000</option>
-                        <option value="50000-10000">5000-10000</option>
-                        <option value="10000-20000">10000-20000</option>
-                        <option value="30000-500000">50000-500000</option>
-                        <option value="500000-600000">500000-600000</option>
-    
-                        <option value="600000 plus">600000 plus</option>
+                        <option value="1500-3000">1500-3000</option>
+                        <option value="3000-4000">3000-4000</option>
+                        <option value="4000-5000">4000-5000</option>
+                        <option value="5000-6000">5000-6000</option>
+                        <option value="6000-7000">6000-7000</option>
+                        <option value="7000-8000">7000-8000</option>
+                        <option value="8000-9000">8000-9000</option>
+                        <option value="10000-15000">10000-15000</option>
+                        <option value="15000-20000">15000-20000</option>
+                        <option value="200000+">200000+</option>
                     </select>
                  </div>
             </div>
@@ -223,13 +226,13 @@
                 <div class="col-md-2"></div>
                 <div class="col-md-4">
                     <button class="theme-primary-btn btn btn-success" type="submit">Post job</button>
-                 
+
                  </div>
             </div>
 
         </form>
-  
+
     </div>
-</div>  
+</div>
 
 @endsection

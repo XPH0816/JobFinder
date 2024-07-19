@@ -1,6 +1,7 @@
 <script setup>
 import axios from 'axios';
 import { getCurrentInstance, onMounted, ref } from 'vue';
+import { showMessageModal } from '../utils/showModal';
 
 const props = defineProps(["instance", "services"]);
 const instance = getCurrentInstance();
@@ -59,6 +60,11 @@ const pay = async () => {
     });
     if (error) {
         console.log(error);
+        pending.value = false;
+        $(instance.vnode.el).on("hidden.bs.modal", () => {
+            showMessageModal("Error", "Payment failed. Please try again later.");
+        });
+        $(instance.vnode.el).modal("hide");
         return;
     }
     let appId = (await axios.post("/applications/" + props.instance.jobid, { services: props.services })).data;
@@ -112,7 +118,8 @@ const pay = async () => {
                             Payment processing...
                         </div>
 
-                        <button @click="pay" id="card-button" class="btn btn-primary mt-3" :disabled="!stripeLoaded || pending">
+                        <button @click="pay" id="card-button" class="btn btn-primary mt-3"
+                            :disabled="!stripeLoaded || pending">
                             Pay
                         </button>
                     </div>
