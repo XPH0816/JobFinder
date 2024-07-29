@@ -81,7 +81,9 @@ class DashboardController extends Controller
     public function update(Request $request, string $id)
     {
         $job = Job::findOrFail($id);
-        $job->update($request->all());
+        $data = $request->all();
+        $request->input("salary") == 0 ? $data['salary'] = 'negotiable' : $request->salary;
+        $job->update($data);
         return redirect()->back()->with('success', 'Job updated Successfully.');
     }
 
@@ -125,6 +127,7 @@ class DashboardController extends Controller
         $company = Company::findOrFail($company_id);
         $user_id = $company->user_id;
 
+        $salary = request('salary') == 0 ? 'negotiable' : request('salary');
 
         Job::create([
             'user_id' => $user_id,
@@ -142,7 +145,7 @@ class DashboardController extends Controller
             'experience' => request('experience'),
             'number_of_vacancy' => request('number_of_vacancy'),
             'gender' => request('gender'),
-            'salary' => request('salary'),
+            'salary' => $salary,
             'last_date' => request('last_date'),
         ]);
 

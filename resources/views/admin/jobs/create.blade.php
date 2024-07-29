@@ -90,7 +90,8 @@
                 <div class="col-md-4">
                     <select name="type" id="type" class="form-control">
                         <option value="fulltime">Fulltime</option>
-                        <option value="partime">Partime</option>
+                        <option value="part time">Part Time</option>
+                        <option value="intern">Intern</option>
                         <option value="remote">Remote</option>
                     </select>
                     @if ($errors->has('type'))
@@ -179,19 +180,13 @@
             <div class="form-group row">
                 <div class="col-md-2">Salary/year</div>
                 <div class="col-md-4">
-                    <select class="form-control" name="salary">
-                        <option value="negotiable">Negotiable</option>
-                        <option value="1500-3000">1500-3000</option>
-                        <option value="3000-4000">3000-4000</option>
-                        <option value="4000-5000">4000-5000</option>
-                        <option value="5000-6000">5000-6000</option>
-                        <option value="6000-7000">6000-7000</option>
-                        <option value="7000-8000">7000-8000</option>
-                        <option value="8000-9000">8000-9000</option>
-                        <option value="10000-15000">10000-15000</option>
-                        <option value="15000-20000">15000-20000</option>
-                        <option value="200000+">200000+</option>
-                    </select>
+                    <input type="number" name="salary" class="form-control{{ $errors->has('salary') ? ' is-invalid' : '' }}" value="{{ old('salary') }}">
+                    <small class="text-muted mt-1">If salary is negotiable then put 0</small>
+                    @if ($errors->has('salary'))
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $errors->first('salary') }}</strong>
+                    </span>
+                    @endif
                  </div>
             </div>
 

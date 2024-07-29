@@ -168,7 +168,7 @@
                 <div class="form-group row">
                     <div class="col-md-2">Salary/year</div>
                     <div class="col-md-4">
-
+{{--
                         <select class="form-control" name="salary">
                             <option value="negotiable" @selected($job->salary == 'Negotiable')>Negotiable</option>
                             <option value="1500-3000" @selected($job->salary == 'RM 1500-3000')>1500-3000</option>
@@ -181,7 +181,8 @@
                             <option value="10000-15000" @selected($job->salary == 'RM 10000-15000')>10000-15000</option>
                             <option value="15000-20000" @selected($job->salary == 'RM 15000-20000')>15000-20000</option>
                             <option value="200000+" @selected($job->salary == 'RM 200000+')>200000+</option>
-                        </select>
+                        </select> --}}
+                        <input type="number" name="salary" class="form-control" value="{{ $job->salary == 'Negotiable' ? '0' : substr($job->salary, 3) }}">
                     </div>
                 </div>
 

@@ -27,8 +27,12 @@ class JobController extends Controller
      */
     public function index()
     {
-        $jobs = Job::latest()->limit(15)->where('status', 1)->get();
+        $adminRole = auth()->user()->roles()->pluck('name');
+        if ($adminRole->contains('admin')) {
+            return redirect()->to('/dashboard');
+        }
 
+        $jobs = Job::latest()->limit(15)->where('status', 1)->get();
 
         $companies = Company::inRandomOrder()->take(12)->get();
 
@@ -62,7 +66,7 @@ class JobController extends Controller
         $company = Company::where('user_id', $user_id)->first();
         $company_id = $company->id;
 
-
+        $salary = request('salary') == 0 ? 'negotiable' : request('salary');
 
         Job::create([
             'user_id' => $user_id,
@@ -74,11 +78,13 @@ class JobController extends Controller
             'category_id' => request('category'),
             'position' => request('position'),
             'address' => request('address'),
+            'featured' => 1,
             'type' => request('type'),
+            'status' => request('status'),
             'experience' => request('experience'),
             'number_of_vacancy' => request('number_of_vacancy'),
             'gender' => request('gender'),
-            'salary' => request('salary'),
+            'salary' => $salary,
             'last_date' => request('last_date'),
         ]);
 

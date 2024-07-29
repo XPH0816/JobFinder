@@ -73,7 +73,7 @@
 
                                         <td> <span class="badge badge-lg badge-warning text-black">{{ date('F d, Y', strtotime($job->last_date)) }}</span></td>
 
-                                        <td style="width: 8%"> <span class="badge badge-lg badge-secondary text-white">{{  Str::ucfirst($job->type)}}</span> </td>
+                                        <td style="width: 8%"> <span class="badge badge-lg badge-secondary text-white">{{ ucwords($job->type)}}</span> </td>
 
                                         <td>
                                             @if ($job->status == '0')
