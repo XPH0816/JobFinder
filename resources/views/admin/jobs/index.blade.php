@@ -8,17 +8,17 @@
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{ route('dashboard') }}"><i class="material-icons">home</i>Home</a></li>
-            
+
             <li class="breadcrumb-item active" aria-current="page">Jobs</li>
           </ol>
         </nav>
         <div class="create-item">
             <a href="{{ route('adminCreate') }}" class="theme-primary-btn btn btn-primary"><i class="material-icons">add</i>&nbsp;Create new job</a>
             <a href="{{ route('adminJobTrash') }}" class="theme-danger-btn btn btn-danger"><i class="material-icons">delete</i>&nbsp;Restore jobs</a>
-          
+
         </div>
     </div>
-      <!--  Header BreadCrumb -->  
+      <!--  Header BreadCrumb -->
 
 
         <!-- Users DataTable-->
@@ -46,35 +46,35 @@
                                 <?php $i=0; ?>
                                 @foreach ($jobs as $job)
                                 <?php $i++ ?>
-                                    
-    
+
+
                                     <tr>
                                         <td>{{ $i }}</td>
                                         <td>{{ $job->title }}</td>
                                         <td>
                                             @if ($job->featured == '0')
-                            
+
                                                 <a class="badge badge-lg badge-secondary text-white" href="{{ route('adminJobFeatureToggle',[$job->id]) }}"
                                                 >{{ __('Make Featured') }}</a>
-                              
-                                              
+
+
 
                                             @else
                                                 <a class="badge badge-lg badge-success text-white" href="{{ route('adminJobFeatureToggle',[$job->id]) }}"
                                                     >{{ __('Featured') }}</a>
 
-                                              
+
 
 
                                             @endif
-                                            
+
                                         </td>
-                                        <td><span class="badge badge-lg badge-info text-white">{{ date('F d, Y', strtotime($job->crated_at)) }}</span></td>
+                                        <td><span class="badge badge-lg badge-info text-white">{{ date('F d, Y', strtotime($job->created_at)) }}</span></td>
 
                                         <td> <span class="badge badge-lg badge-warning text-black">{{ date('F d, Y', strtotime($job->last_date)) }}</span></td>
 
                                         <td style="width: 8%"> <span class="badge badge-lg badge-secondary text-white">{{  Str::ucfirst($job->type)}}</span> </td>
-                                       
+
                                         <td>
                                             @if ($job->status == '0')
                                                 <a  class="badge badge-lg badge-danger text-white" href="{{ route('adminJobToggle',[$job->id]) }}"
@@ -86,14 +86,14 @@
                                                 <a  class="badge badge-lg badge-success text-white" href="{{ route('adminJobToggle',[$job->id]) }}"
                                                     >{{ __('Active') }}</a>
 
-                                               
+
 
                                             @endif
-                                            
+
                                         </td>
                                         <td style="width: 18%">
-                                            <a class="btn btn-sm btn-secondary" href="{{route('adminShow',[$job->id])}}"><i class="material-icons">remove_red_eye</i> </a>  
-                                            <a  class="btn btn-sm btn-info" href="{{route('adminEdit',[$job->id])}}"><i class="material-icons">edit</i></a> 
+                                            <a class="btn btn-sm btn-secondary" href="{{route('adminShow',[$job->id])}}"><i class="material-icons">remove_red_eye</i> </a>
+                                            <a  class="btn btn-sm btn-info" href="{{route('adminEdit',[$job->id])}}"><i class="material-icons">edit</i></a>
 
 
 
@@ -137,9 +137,9 @@
 
                                         </td>
                                     </tr>
-                                    
+
                                 @endforeach
-                             
+
 
 
 
@@ -151,6 +151,6 @@
 
         </div>
 
-         <!-- Users DataTable-->   
+         <!-- Users DataTable-->
 
 @endsection

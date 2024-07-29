@@ -13,43 +13,48 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
+
 class DashboardController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         $jobs = Job::all();
         $companies = Company::all();
         $featuredJobs = Job::where('featured', 1)->get();
         $activeJobs = Job::where('status', 1)->get();
         $users = User::where('user_type', 'seeker')
-                        ->get();
+            ->get();
         $weeklyUsers = User::latest()
-                            ->where('user_type', 'seeker')
-                            ->limit(4)
-                            ->get();
+            ->where('user_type', 'seeker')
+            ->limit(4)
+            ->get();
         $weeklyEmployee = User::latest()
-                            ->where('user_type', 'employer')
-                            ->limit(4)
-                            ->get();
+            ->where('user_type', 'employer')
+            ->limit(4)
+            ->get();
 
         return view('admin.index', compact('jobs', 'activeJobs', 'companies', 'users', 'featuredJobs', 'weeklyUsers', 'weeklyEmployee'));
     }
 
 
     // Get all Admin list
-    public function adminlist(){
+    public function adminlist()
+    {
         $users = User::latest()->get();
         return view('admin.profile.index', compact('users'));
     }
 
 
-    public function getAllJobs(){
+    public function getAllJobs()
+    {
         $jobs = Job::latest()->get();
         return view('admin.jobs.index', compact('jobs'));
 
     }
 
     // Job create
-    public function create(){
+    public function create()
+    {
 
         return view('admin.jobs.create');
     }
@@ -57,12 +62,14 @@ class DashboardController extends Controller
 
 
 
-    public function edit($id){
+    public function edit($id)
+    {
         $job = Job::findOrFail($id);
         return view('admin.jobs.edit', compact('job'));
 
     }
-    public function show($id){
+    public function show($id)
+    {
         $job = Job::findOrFail($id);
         return view('admin.jobs.show', compact('job'));
 
@@ -74,10 +81,7 @@ class DashboardController extends Controller
     public function update(Request $request, string $id)
     {
         $job = Job::findOrFail($id);
-
-
         $job->update($request->all());
-
         return redirect()->back()->with('success', 'Job updated Successfully.');
     }
 
@@ -86,18 +90,19 @@ class DashboardController extends Controller
     /**
      *  Job in Featured table
      */
-    public function jobFetureToggle($id){
+    public function jobFetureToggle($id)
+    {
         $job = Job::find($id);
         $job->featured = !$job->featured;
         $job->save();
-
         return redirect('/dashboard/jobs')->with('success', 'Featured Updated Successfully!');
     }
 
     /**
      *  Job in live/Draft
      */
-    public function jobToggle($id){
+    public function jobToggle($id)
+    {
         $job = Job::find($id);
         $job->status = !$job->status;
         $job->save();
@@ -122,8 +127,8 @@ class DashboardController extends Controller
 
 
         Job::create([
-            'user_id'=> $user_id,
-            'company_id'=> $company_id,
+            'user_id' => $user_id,
+            'company_id' => $company_id,
             'title' => request('title'),
             'slug' => Str::slug(request('title')),
             'description' => request('description'),
@@ -149,16 +154,18 @@ class DashboardController extends Controller
 
 
     // Job Trash method
-    public function jobTrash(){
+    public function jobTrash()
+    {
         $jobs = Job::onlyTrashed()->get();
-       return view('admin.jobs.trash', compact('jobs'));
-   }
+        return view('admin.jobs.trash', compact('jobs'));
+    }
 
     // Job Restore method
-    public function jobRestore($id){
+    public function jobRestore($id)
+    {
         Job::onlyTrashed()->where('id', $id)->restore();
         return redirect('/dashboard/jobs')->with('success', 'Job restored Successfully!');
-   }
+    }
 
 
 
@@ -166,7 +173,8 @@ class DashboardController extends Controller
     /**
      *  Delete the single job
      */
-    public function destroy(Request $request){
+    public function destroy(Request $request)
+    {
         $id = $request->get('id');
         $jobTrash = Job::find($id);
         $jobTrash->delete();
@@ -175,15 +183,17 @@ class DashboardController extends Controller
 
 
     // Job Delete permanantly method
-    public function jobDeletePermanantly(Request $request){
+    public function jobDeletePermanantly(Request $request)
+    {
 
         $id = $request->get('id');
         Job::onlyTrashed()->where('id', $id)->forceDelete();
-         return redirect('/dashboard/jobs')->with('success', 'Job Deleted Permanantly!');
+        return redirect('/dashboard/jobs')->with('success', 'Job Deleted Permanantly!');
     }
 
     // Get All Employers
-    public function getEmployers(){
+    public function getEmployers()
+    {
         $employers = User::latest()->where('user_type', 'employer')->get();
         return view('admin.employers.index', compact('employers'));
 
@@ -193,7 +203,8 @@ class DashboardController extends Controller
     /**
      *  employer active/deactive method
      */
-    public function employerToggle($id){
+    public function employerToggle($id)
+    {
         $employer = User::find($id);
         $employer->status = !$employer->status;
         $employer->save();
@@ -201,7 +212,8 @@ class DashboardController extends Controller
         return redirect('/dashboard/employers')->with('success', 'Status Updated Successfully!');
     }
 
-    public function editEmployer($id){
+    public function editEmployer($id)
+    {
         $employer = User::findOrFail($id);
         $company = Company::where('user_id', $id)->get();
         return view('admin.employers.edit', compact('employer', 'company'));
@@ -217,10 +229,10 @@ class DashboardController extends Controller
 
         $request->validate([
             'address' => 'required',
-            'phone'=> 'required',
-            'cname'=> 'required',
-            'website'=> 'required',
-            'description'=> 'required|min:100|max:4000',
+            'phone' => 'required',
+            'cname' => 'required',
+            'website' => 'required',
+            'description' => 'required|min:100|max:4000',
 
         ]);
 
@@ -228,11 +240,11 @@ class DashboardController extends Controller
         Company::updateOrCreate(
             ['user_id' => $id],
             [
-                'address'=> request('address'),
-                'phone'=> request('phone'),
-                'cname'=> request('cname'),
-                'website'=> request('website'),
-                'description'=> request('description'),
+                'address' => request('address'),
+                'phone' => request('phone'),
+                'cname' => request('cname'),
+                'website' => request('website'),
+                'description' => request('description'),
 
             ]
         );
@@ -246,7 +258,8 @@ class DashboardController extends Controller
 
 
     // Employer delete method
-    public function destroyEmployer(Request $request){
+    public function destroyEmployer(Request $request)
+    {
         $id = $request->get('id');
         $employer = User::find($id);
 
@@ -255,7 +268,7 @@ class DashboardController extends Controller
 
 
         // Delete the old banner file
-        if(is_file(public_path('uploads/banner/' . $oldBanner))){
+        if (is_file(public_path('uploads/banner/' . $oldBanner))) {
             unlink(public_path('uploads/banner/' . $oldBanner));
 
         }
@@ -266,7 +279,7 @@ class DashboardController extends Controller
 
 
         // Delete the old logo file
-        if(is_file(public_path('uploads/logo/' . $oldLogo))){
+        if (is_file(public_path('uploads/logo/' . $oldLogo))) {
             unlink(public_path('uploads/logo/' . $oldLogo));
 
         }
@@ -278,7 +291,8 @@ class DashboardController extends Controller
 
 
     // // Get All candidates
-    public function getAllCatedidates(){
+    public function getAllCatedidates()
+    {
         $candidates = User::latest()->where('user_type', 'seeker')->get();
         return view('admin.candidates.index', compact('candidates'));
 
@@ -287,7 +301,8 @@ class DashboardController extends Controller
     /**
      *  Candidate active/deactive method
      */
-    public function candidateToggle($id){
+    public function candidateToggle($id)
+    {
         $candidate = User::find($id);
         $candidate->status = !$candidate->status;
         $candidate->save();
@@ -296,7 +311,8 @@ class DashboardController extends Controller
     }
 
 
-    public function editCandidate($id){
+    public function editCandidate($id)
+    {
         $candidate = User::findOrFail($id);
         $profile = Profile::where('user_id', $id)->get();
 
@@ -316,21 +332,21 @@ class DashboardController extends Controller
 
         $request->validate([
             'address' => 'required|min:20|max:255',
-            'phone'=> 'required|digits:11',
-            'experience'=> 'required|min:10|max:255',
-            'bio'=> 'required|min:30|max:450',
+            'phone' => 'required|digits:11',
+            'experience' => 'required|min:10|max:255',
+            'bio' => 'required|min:30|max:450',
         ]);
 
 
-         Profile::updateOrCreate(
+        Profile::updateOrCreate(
             ['user_id' => $id],
             [
-                'address'=> request('address'),
-                'phone'=> request('phone'),
-                'gender'=> request('gender'),
-                'dob'=> request('dob'),
-                'experience'=> request('experience'),
-                'bio'=> request('bio'),
+                'address' => request('address'),
+                'phone' => request('phone'),
+                'gender' => request('gender'),
+                'dob' => request('dob'),
+                'experience' => request('experience'),
+                'bio' => request('bio'),
             ]
         );
 
@@ -346,7 +362,8 @@ class DashboardController extends Controller
     /**
      *  Delete the single Candidate
      */
-    public function destroyCandidate(Request $request, string $id){
+    public function destroyCandidate(Request $request, string $id)
+    {
         // $id = $request->get('id');
         $CandidateTrash = User::find($id);
         $CandidateTrash->delete();
@@ -356,18 +373,20 @@ class DashboardController extends Controller
 
 
     // Post Create method
-    public function postCreate(){
+    public function postCreate()
+    {
 
         return view('admin.posts.create');
     }
 
 
     // Post Store
-    public function postStore(Request $request){
+    public function postStore(Request $request)
+    {
         $this->validate($request, [
-            'title'=> 'required|min:4|unique:posts',
-            'description'=> 'required',
-            'post_thumbnail'=> 'required|mimes:jpeg,jpg,png|max:1024'
+            'title' => 'required|min:4|unique:posts',
+            'description' => 'required',
+            'post_thumbnail' => 'required|mimes:jpeg,jpg,png|max:1024'
         ]);
 
 
@@ -375,7 +394,7 @@ class DashboardController extends Controller
             $file = $request->file('post_thumbnail');
             $path = $file->store('uploads', 'public');
             Post::create([
-                'title'=> $title = $request->get('title'),
+                'title' => $title = $request->get('title'),
                 'slug' => Str::slug($title),
                 'description' => $request->get('description'),
                 'category_id' => $request->get('category_id'),
@@ -391,7 +410,8 @@ class DashboardController extends Controller
 
 
     // Category create
-    public function categoryCreate(){
+    public function categoryCreate()
+    {
 
         return view('admin.category.create');
     }
@@ -399,26 +419,29 @@ class DashboardController extends Controller
 
 
     // Get all Category
-    public function getAllCategory(){
+    public function getAllCategory()
+    {
         $categories = Category::latest()->get();
         return view('admin.category.index', compact('categories'));
     }
 
 
     // Edit Category
-    public function editCategory($id){
+    public function editCategory($id)
+    {
         $category = Category::findOrFail($id);
         return view('admin.category.edit', compact('category'));
     }
 
-    public function updateCategory(Request $request, $id){
+    public function updateCategory(Request $request, $id)
+    {
 
         $this->validate($request, [
-            'name'=> 'required|min:4'
+            'name' => 'required|min:4'
         ]);
 
         Category::where('id', $id)->update([
-            'name'=> $request->get('name'),
+            'name' => $request->get('name'),
             'slug' => Str::slug($request->get('name'))
 
         ]);
@@ -430,13 +453,15 @@ class DashboardController extends Controller
     /**
      *  Delete the single Category
      */
-    public function destroyCategory(Request $request, string $id){
+    public function destroyCategory(Request $request, string $id)
+    {
         $Category = Category::find($id);
         $Category->delete();
         return redirect('/dashboard/category')->with('success', 'Category Deleted Successfully!');
     }
     // Category toggle method
-    public function categoryToggle($id){
+    public function categoryToggle($id)
+    {
         $categoryToggle = Category::find($id);
         $categoryToggle->status = !$categoryToggle->status;
         $categoryToggle->save();
@@ -451,12 +476,12 @@ class DashboardController extends Controller
     public function categoryStore(Request $request)
     {
         $this->validate($request, [
-            'name'=> 'required|min:4|unique:categories'
+            'name' => 'required|min:4|unique:categories'
 
         ]);
 
         Category::create([
-            'name'=> $name = $request->get('name'),
+            'name' => $name = $request->get('name'),
             'slug' => Str::slug($name),
             'status' => '1',
 
@@ -477,14 +502,16 @@ class DashboardController extends Controller
 
 
     // Get all posts
-    public function getAllPosts(){
+    public function getAllPosts()
+    {
         $posts = Post::latest()->get();
         return view('admin.posts.index', compact('posts'));
 
     }
 
     // post single show method
-    public function readPost($id){
+    public function readPost($id)
+    {
         $post = Post::find($id);
         $featured = Job::where('featured', 1)->get();
         return view('admin.posts.read', compact('post', 'featured'));
@@ -493,7 +520,8 @@ class DashboardController extends Controller
 
 
     // Show single post
-    public function showPost($id){
+    public function showPost($id)
+    {
         $post = Post::findOrFail($id);
         return view('admin.posts.show', compact('post'));
 
@@ -501,23 +529,25 @@ class DashboardController extends Controller
 
 
     // Edit single post
-    public function editPost($id){
+    public function editPost($id)
+    {
         $post = Post::findOrFail($id);
         return view('admin.posts.edit', compact('post'));
 
     }
 
     // Update single post
-    public function updatePost(Request $request, $id){
+    public function updatePost(Request $request, $id)
+    {
 
 
         $this->validate($request, [
-            'title'=> 'required|min:4',
-            'description'=> 'required'
+            'title' => 'required|min:4',
+            'description' => 'required'
         ]);
 
 
-        try{
+        try {
 
 
             if ($request->hasFile('post_thumbnail')) {
@@ -534,15 +564,15 @@ class DashboardController extends Controller
                 //$file = $request->file('post_thumbnail');
                 // $path = $file->store('uploads', 'public');
                 Post::where('id', $id)->update([
-                    'title'=> $request->get('title'),
+                    'title' => $request->get('title'),
                     'description' => $request->get('description'),
                     'category_id' => $request->get('category_id'),
                     'post_thumbnail' => $post_thumbnail,
                     'status' => $request->get('status'),
                 ]);
-            }else{
+            } else {
                 Post::where('id', $id)->update([
-                    'title'=> $request->get('title'),
+                    'title' => $request->get('title'),
                     'description' => $request->get('description'),
                     'category_id' => $request->get('category_id'),
                     'status' => $request->get('status'),
@@ -550,8 +580,8 @@ class DashboardController extends Controller
             }
 
             return redirect('/dashboard/posts')->with('success', 'Post updated Successfully!');
-        }catch(\Exception $e){
-            return redirect('/dashboard/posts')->with('errors','Something goes wrong while uploading file!');
+        } catch (\Exception $e) {
+            return redirect('/dashboard/posts')->with('errors', 'Something goes wrong while uploading file!');
         }
 
 
@@ -562,7 +592,8 @@ class DashboardController extends Controller
 
 
     // Delete single post by id
-    public function postDestroy(Request $request){
+    public function postDestroy(Request $request)
+    {
         $id = $request->get('id');
         $post = Post::find($id);
 
@@ -580,18 +611,21 @@ class DashboardController extends Controller
 
 
     // Post Restore method
-    public function postTrash(){
-         $posts = Post::onlyTrashed()->get();
+    public function postTrash()
+    {
+        $posts = Post::onlyTrashed()->get();
         return view('admin.posts.trash', compact('posts'));
     }
 
     // Post Restore method
-    public function postRestore($id){
-         Post::onlyTrashed()->where('id', $id)->restore();
-         return redirect('/dashboard/posts')->with('success', 'Post restored Successfully!');
+    public function postRestore($id)
+    {
+        Post::onlyTrashed()->where('id', $id)->restore();
+        return redirect('/dashboard/posts')->with('success', 'Post restored Successfully!');
     }
     // Post Delete post permanantly method
-    public function postDeletePermanantly(Request $request){
+    public function postDeletePermanantly(Request $request)
+    {
 
         $id = $request->get('id');
         //$post = Post::find($id);
@@ -606,12 +640,13 @@ class DashboardController extends Controller
         }
 
         Post::onlyTrashed()->where('id', $id)->forceDelete();
-         return redirect('/dashboard/posts')->with('success', 'Post Deleted Permanantly!');
+        return redirect('/dashboard/posts')->with('success', 'Post Deleted Permanantly!');
     }
 
 
     // Post toggle method
-    public function postToggle($id){
+    public function postToggle($id)
+    {
         $post = Post::find($id);
         $post->status = !$post->status;
         $post->save();
@@ -623,28 +658,31 @@ class DashboardController extends Controller
 
 
     // Testimonial index
-    public function testimonials(){
+    public function testimonials()
+    {
         $testimonials = Testimonial::latest()->get();
         return view('admin.testimonials.index', compact('testimonials'));
     }
 
     // Testimonial Create method
-    public function testimonialCreate(){
+    public function testimonialCreate()
+    {
 
         return view('admin.testimonials.create');
     }
 
     // Testimonial Store
-    public function testimoniStore(Request $request){
+    public function testimoniStore(Request $request)
+    {
         $this->validate($request, [
-            'name'=> 'required|min:4',
-            'profession'=> 'required|min:4',
-            'content'=> 'required|max:1500',
-            'video_id'=> 'required',
+            'name' => 'required|min:4',
+            'profession' => 'required|min:4',
+            'content' => 'required|max:1500',
+            'video_id' => 'required',
         ]);
 
         Testimonial::create([
-            'name'=> $request->get('name'),
+            'name' => $request->get('name'),
             'profession' => $request->get('profession'),
             'content' => $request->get('content'),
             'video_id' => $request->get('video_id'),
@@ -657,7 +695,8 @@ class DashboardController extends Controller
     }
 
     // Testimonial toggle method
-    public function testimoniToggle($id){
+    public function testimoniToggle($id)
+    {
         $testimoni = Testimonial::find($id);
         $testimoni->status = !$testimoni->status;
         $testimoni->save();
@@ -666,27 +705,29 @@ class DashboardController extends Controller
     }
 
 
-    public function editTestimoni($id){
+    public function editTestimoni($id)
+    {
         $testimonial = Testimonial::findOrFail($id);
         return view('admin.testimonials.edit', compact('testimonial'));
 
     }
 
-    public function updateTestimoni(Request $request, $id){
+    public function updateTestimoni(Request $request, $id)
+    {
 
         $this->validate($request, [
-            'name'=> 'required|min:4',
-            'profession'=> 'required|min:4',
-            'content'=> 'required|max:1500',
-            'video_id'=> 'required',
+            'name' => 'required|min:4',
+            'profession' => 'required|min:4',
+            'content' => 'required|max:1500',
+            'video_id' => 'required',
         ]);
 
         Testimonial::where('id', $id)->update([
-            'name'=> $request->get('name'),
-            'profession'=> $request->get('profession'),
-            'content'=> $request->get('content'),
-            'video_id'=> $request->get('video_id'),
-            'status'=> $request->get('status'),
+            'name' => $request->get('name'),
+            'profession' => $request->get('profession'),
+            'content' => $request->get('content'),
+            'video_id' => $request->get('video_id'),
+            'status' => $request->get('status'),
 
 
         ]);
@@ -696,7 +737,8 @@ class DashboardController extends Controller
     }
 
 
-    public function destroyTestimoni(Request $request, string $id){
+    public function destroyTestimoni(Request $request, string $id)
+    {
         $testimoni = Testimonial::find($id);
         $testimoni->delete();
         return redirect('/dashboard/testimonials')->with('success', 'Testimonial Deleted Successfully!');
@@ -704,7 +746,8 @@ class DashboardController extends Controller
 
 
     // Setting method
-    public function settings(){
+    public function settings()
+    {
         return view('admin.settings.index');
     }
 
