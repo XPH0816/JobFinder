@@ -133,6 +133,7 @@ class DashboardController extends Controller
             'address' => request('address'),
             'featured' => 1,
             'type' => request('type'),
+            'status' => request('status'),
             'experience' => request('experience'),
             'number_of_vacancy' => request('number_of_vacancy'),
             'gender' => request('gender'),
