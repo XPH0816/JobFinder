@@ -215,12 +215,38 @@ class DashboardController extends Controller
         return redirect('/dashboard/employers')->with('success', 'Status Updated Successfully!');
     }
 
+    public function storeEmployer(Request $request)
+    {
+        $request->validate([
+            'address' => 'required',
+            'phone' => 'required',
+            'cname' => 'required',
+            'email' => 'required|email|unique:users',
+            'website' => 'required',
+            'description' => 'required|min:30|max:4000',
+        ]);
+
+        $employer = User::create([
+            'name' => request('cname'),
+            'email' => request('email'),
+            'password' => bcrypt('employer'),
+            'user_type' => 'employer',
+            'status' => '1',
+        ]);
+        $employer->markEmailAsVerified();
+        Company::create([
+            'user_id' => $employer->id,
+            'cname' => request('cname'),
+            'slug' => Str::slug(request('cname'))
+        ]);
+        return redirect()->back()->with('success', 'Company created Successfully.');
+    }
+
     public function editEmployer($id)
     {
         $employer = User::findOrFail($id);
         $company = Company::where('user_id', $id)->get();
         return view('admin.employers.edit', compact('employer', 'company'));
-
     }
 
     /**
@@ -236,7 +262,6 @@ class DashboardController extends Controller
             'cname' => 'required',
             'website' => 'required',
             'description' => 'required|min:100|max:4000',
-
         ]);
 
 

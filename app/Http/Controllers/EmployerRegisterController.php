@@ -16,8 +16,6 @@ class EmployerRegisterController extends Controller
      */
     public function employerRegister(Request $request)
     {
-
-
         $request->validate([
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'cname'=> 'required|unique:companies,cname|max:50',
