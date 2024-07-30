@@ -242,6 +242,9 @@ class DashboardController extends Controller
             'website' => request('website'),
             'phone' => request('phone'),
             'description' => request('description'),
+            'logo' => 'gridtemplate.png',
+            'banner' => 'banner.png',
+            'slogan' => 'Learn-earn-grow',
         ]);
         return redirect()->back()->with('success', 'Company created Successfully.');
     }
