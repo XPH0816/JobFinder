@@ -166,7 +166,7 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <div class="col-md-2">Salary/year</div>
+                    <div class="col-md-2">Salary</div>
                     <div class="col-md-4">
 {{--
                         <select class="form-control" name="salary">
@@ -182,7 +182,13 @@
                             <option value="15000-20000" @selected($job->salary == 'RM 15000-20000')>15000-20000</option>
                             <option value="200000+" @selected($job->salary == 'RM 200000+')>200000+</option>
                         </select> --}}
-                        <input type="number" name="salary" class="form-control" value="{{ $job->salary == 'Negotiable' ? '0' : substr($job->salary, 3) }}">
+                        <input type="number" name="salary" class="form-control{{ $errors->has('salary') ? ' is-invalid' : '' }}" value="{{ $job->salary == 'Negotiable' ? '0' : substr($job->salary, 3) }}">
+                        <small class="text-muted mt-1">If salary is negotiable then put 0</small>
+                        @if ($errors->has('salary'))
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $errors->first('salary') }}</strong>
+                            </span>
+                        @endif
                     </div>
                 </div>
 

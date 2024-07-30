@@ -178,7 +178,7 @@
                  </div>
             </div>
             <div class="form-group row">
-                <div class="col-md-2">Salary/year</div>
+                <div class="col-md-2">Salary</div>
                 <div class="col-md-4">
                     <input type="number" name="salary" class="form-control{{ $errors->has('salary') ? ' is-invalid' : '' }}" value="{{ old('salary') }}">
                     <small class="text-muted mt-1">If salary is negotiable then put 0</small>
