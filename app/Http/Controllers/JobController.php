@@ -27,8 +27,7 @@ class JobController extends Controller
      */
     public function index()
     {
-        $adminRole = Auth::user()->roles()->pluck('name');
-        if ($adminRole->contains('admin')) {
+        if (auth()->check() && auth()->user()->user_type == 'admin') {
             return redirect()->to('/dashboard');
         }
 
