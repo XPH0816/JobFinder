@@ -46,18 +46,14 @@
                     <div class="col-md-4">
                         <select name="company_id" id="company_id" class="form-control">
                             @foreach (App\Models\Company::all() as $company)
-
-                            <option value="{{ $company->id }}" @selected($job->company_id == $company->id )>{{ $company->cname }}</option>
-
-
+                                <option value="{{ $company->id }}" @selected($job->company_id == $company->id)>{{ $company->cname }}
+                                </option>
                             @endforeach
-
-                            <input type="hidden" name="company_id" value="{{ $company->id }}">
                         </select>
 
 
 
-                     </div>
+                    </div>
                 </div>
                 <div class="form-group row">
                     <div class="col-md-2">Job Title</div>
@@ -186,7 +182,7 @@
                 <div class="form-group row">
                     <div class="col-md-2">Salary</div>
                     <div class="col-md-4">
-{{--
+                        {{--
                         <select class="form-control" name="salary">
                             <option value="negotiable" @selected($job->salary == 'Negotiable')>Negotiable</option>
                             <option value="1500-3000" @selected($job->salary == 'RM 1500-3000')>1500-3000</option>
@@ -200,7 +196,9 @@
                             <option value="15000-20000" @selected($job->salary == 'RM 15000-20000')>15000-20000</option>
                             <option value="200000+" @selected($job->salary == 'RM 200000+')>200000+</option>
                         </select> --}}
-                        <input type="number" name="salary" class="form-control{{ $errors->has('salary') ? ' is-invalid' : '' }}" value="{{ $job->salary == 'Negotiable' ? '0' : substr($job->salary, 3) }}">
+                        <input type="number" name="salary"
+                            class="form-control{{ $errors->has('salary') ? ' is-invalid' : '' }}"
+                            value="{{ $job->salary == 'Negotiable' ? '0' : substr($job->salary, 3) }}">
                         <small class="text-muted mt-1">If salary is negotiable then put 0</small>
                         @if ($errors->has('salary'))
                             <span class="invalid-feedback" role="alert">

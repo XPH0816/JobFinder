@@ -39,8 +39,6 @@
 
 
                         @endforeach
-
-                        <input type="hidden" name="company_id" value="{{ $company->id }}">
                     </select>
 
 
