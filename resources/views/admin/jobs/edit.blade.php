@@ -42,6 +42,24 @@
 
                 </div>
                 <div class="form-group row">
+                    <div class="col-md-2">Company name</div>
+                    <div class="col-md-4">
+                        <select name="company_id" id="company_id" class="form-control">
+                            @foreach (App\Models\Company::all() as $company)
+
+                            <option value="{{ $company->id }}" @selected($job->company_id == $company->id )>{{ $company->cname }}</option>
+
+
+                            @endforeach
+
+                            <input type="hidden" name="company_id" value="{{ $company->id }}">
+                        </select>
+
+
+
+                     </div>
+                </div>
+                <div class="form-group row">
                     <div class="col-md-2">Job Title</div>
                     <div class="col-md-4">
                         <input type="text" name="title" value="{{ $job->title }}" class="form-control">

@@ -72,7 +72,7 @@
                                 <h2 class="mr-3 text-black h4">{{ $job->position }}</h2>
                                 <div class="badge-wrap">
                                     <span
-                                        class="border border-warning text-warning py-2 px-4 rounded">{{ Str::ucfirst($job->type) }}</span>
+                                        class="border border-warning text-warning py-2 px-4 rounded">{{ ucwords($job->type) }}</span>
                                     <span class="border ml-3 bg-primary border-primary text-white py-2 px-4 rounded"><a
                                             href="#"data-toggle="modal" data-target="#recomend-job-modal"><i
                                                 class="icon-envelope-o" style="font-size: 20px;color:#fff"></i></a></span>
@@ -91,7 +91,7 @@
                             <!-- icon-book mr-3-->
                             <h3 class="h5 text-black mb-3"><i class="icon-library_books"
                                     style="color: #28a745;">&nbsp;</i>Description </a></h3>
-                            <p> {{ $job->description }}</p>
+                            <p> {!! $job->description !!}</p>
 
                         </div>
 
