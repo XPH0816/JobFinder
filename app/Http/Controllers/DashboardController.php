@@ -237,7 +237,11 @@ class DashboardController extends Controller
         Company::create([
             'user_id' => $employer->id,
             'cname' => request('cname'),
-            'slug' => Str::slug(request('cname'))
+            'slug' => Str::slug(request('cname')),
+            'address' => request('address'),
+            'website' => request('website'),
+            'phone' => request('phone'),
+            'description' => request('description'),
         ]);
         return redirect()->back()->with('success', 'Company created Successfully.');
     }
