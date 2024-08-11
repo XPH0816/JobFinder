@@ -1,4 +1,4 @@
-<div class="site-wrap">
+<div class="site-wrap" id="nav">
 
     <div class="site-mobile-menu">
         <div class="site-mobile-menu-header">
@@ -17,8 +17,10 @@
                 <div class="py-1">
                     <div class="row align-items-center">
                         <div class="col-2">
-                            <h2 class="mb-0 site-logo"><a href="/">Job<strong
-                                        class="font-weight-bold">Finder</strong> </a></h2>
+                            <h2 class="mb-0 site-logo">
+                                {{-- <a href="/">Job<strong class="font-weight-bold">Finder</strong></a> --}}
+                                <logo-component></logo-component>
+                            </h2>
                         </div>
                         <div class="col-10">
                             <nav class="site-navigation text-right" role="navigation">

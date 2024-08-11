@@ -34,8 +34,6 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mediaelement@4.2.7/build/mediaelementplayer.min.css">
 
-
-
     <link rel="stylesheet" href="{{ asset('external/fonts/flaticon/font/flaticon.css') }}">
 
     <link rel="stylesheet" href="{{ asset('external/css/aos.css') }}">

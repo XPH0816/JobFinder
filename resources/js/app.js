@@ -13,12 +13,15 @@ import { createApp } from 'vue';
  * to use in your application's views. An example is included for you.
  */
 
+const nav = createApp({});
 const app = createApp({});
 
 import ExampleComponent from './components/ExampleComponent.vue';
 import ApplyComponent from './components/ApplyComponent.vue';
 import FavoriteComponent from './components/FavoriteComponent.vue';
 import SearchComponent from './components/SearchComponent.vue';
+import LogoComponent from './components/LogoComponent.vue';
+nav.component('logo-component', LogoComponent);
 app.component('example-component', ExampleComponent);
 app.component('apply-component', ApplyComponent);
 app.component('favorite-component', FavoriteComponent);
@@ -43,3 +46,4 @@ app.component('search-component', SearchComponent);
  */
 
 app.mount('#app');
+nav.mount('#nav');
