@@ -178,9 +178,4 @@
     </div>
 </div>
 
-
-
-@include('frontend/partials.blog')
-
-
 @include('frontend/partials.footer')
