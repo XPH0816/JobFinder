@@ -107,7 +107,7 @@
         </div>
 
         <div class="d-block d-md-flex border-bottom">
-            <div class="text-center p-4 item border-right col-6" data-aos="fade">
+            <div class="text-center p-4 item border-right col-6 col-md" data-aos="fade">
                 <span class="display-3 d-block text-primary">
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-shield-check-filled"
                         width="44" height="44" viewBox="0 0 24 24" stroke-width="1" stroke="#28a745"
@@ -122,7 +122,7 @@
                 <p>We offer detailed and truthful employer information to help you make informed career decisions.</p>
                 {{-- <p><a href="#">Read More <span class="icon-arrow-right small"></span></a></p> --}}
             </div>
-            <div class="text-center p-4 item col-6" data-aos="fade">
+            <div class="text-center p-4 item col-6 col-md" data-aos="fade">
                 <span class="display-3 d-block text-primary">
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user-check"
                         width="44" height="44" viewBox="0 0 24 24" stroke-width="1" stroke="#28a745"
@@ -140,7 +140,7 @@
             </div>
         </div>
         <div class="d-block d-md-flex">
-            <div class="text-center p-4 item border-right col-6" data-aos="fade">
+            <div class="text-center p-4 item border-right col-6 col-md" data-aos="fade">
                 <span class="display-3 d-block text-primary">
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-map-pin-filled"
                         width="44" height="44" viewBox="0 0 24 24" stroke-width="1" stroke="#28a745"
@@ -157,7 +157,7 @@
                     close to home.</p>
                 {{-- <p><a href="#">Read More <span class="icon-arrow-right small"></span></a></p> --}}
             </div>
-            <div class="text-center p-4 item col-6" data-aos="fade">
+            <div class="text-center p-4 item col-6 col-md" data-aos="fade">
                 <span class="display-3 d-block text-primary">
                     <svg xmlns="http://www.w3.org/2000/svg"
                         class="icon icon-tabler icon-tabler-square-rounded-plus-filled" width="44" height="44"
