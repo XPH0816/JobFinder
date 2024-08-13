@@ -4,7 +4,7 @@
             type="text"
             v-model="keyword"
             placeholder="Search job title, address or job position"
-            v-on:keyup="SearchJobs"
+            @keyup="SearchJobs"
             class="mr-3 form-control border px-4"
         />
 
