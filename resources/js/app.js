@@ -45,5 +45,5 @@ app.component('search-component', SearchComponent);
  * scaffolding. Otherwise, you will need to add an element yourself.
  */
 
-app.mount('#app');
 nav.mount('#nav');
+app.mount('#app');

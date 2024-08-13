@@ -99,10 +99,15 @@
                     <div class="col-md-2">Job Type</div>
                     <div class="col-md-4">
                         <select name="type" id="type" class="form-control">
-                            <option value="Fulltime"{{ $job->type == 'Fulltime' ? 'selected' : '' }}>Fulltime</option>
-                            <option value="Partime"{{ $job->type == 'Partime' ? 'selected' : '' }}>Partime</option>
-                            <option value="Remote"{{ $job->type == 'Remote' ? 'selected' : '' }}>Remote</option>
-
+                            <option value="fulltime"{{ $job->type == 'fulltime' ? 'selected' : '' }}>Fulltime
+                            </option>
+                            <option value="part time"{{ $job->type == 'part time' ? 'selected' : '' }}>Part
+                                Time
+                            </option>
+                            <option value="intern" {{ $job->type == 'intern' ? 'selected' : '' }}>Intern
+                            </option>
+                            <option value="remote"{{ $job->type == 'remote' ? 'selected' : '' }}>Remote
+                            </option>
                         </select>
 
                     </div>
