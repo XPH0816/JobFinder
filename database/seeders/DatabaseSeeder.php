@@ -72,11 +72,10 @@ class DatabaseSeeder extends Seeder
         }
 
         $services = [
-            'Resume Writing' => 20,
-            'Resume Photo Capturing' => 20,
-            'Customised Resume Design' => 30,
-            'Suit Renting' => 50,
-            'Makeup and Hair Styling' => 40,
+            'Resume Writing' => 25,
+            'Clothing Rental Service' => 10,
+            'Makeup Service' => 20,
+            'Photography Service' => 5,
         ];
 
         foreach ($services as $service => $price) {
